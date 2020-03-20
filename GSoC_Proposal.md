@@ -157,10 +157,11 @@ For each of these models the following metrics would be claculated:
 
 - __REsults on testing data__ : Some classes (based on the rules) will not be used for training or validation. They will purely be used for testing purposes to know how the model would respond to never been seen before anomalous data.
 
-Depending on these results, a single model would be shorlisted from the three.
+Depending on these results the models would be retrained, and later on a single model would be shorlisted from the three as a deliverable.
 
+## Retraining the Model
 
-
+Retraining the model will be of prime importance, as if the engineer pbserves some anomalous  
 
 This is the meat of the document, where you explain your proposal. If you have
 multiple alternatives, be sure to use sub-sections for better separation of the
