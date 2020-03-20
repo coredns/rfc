@@ -173,12 +173,12 @@ Retraining the model will be of prime importance, as if the engineer pbserves so
 
 The trained model would be packaged as a class. Moreover the classes would contain functions (given below) that would make training and adding new layers to the network much easier for anyone, even if he/she has no prior knowledge about TensorFlow/Keras syntaxes.
 
-'''python
+```python
 def import_weights()
    """
      Imports the trained weights
    """
-'''
+```
 
 
 
