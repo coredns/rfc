@@ -237,34 +237,19 @@ The fsecond model wil be trained and the training for the same will begin.
 
 The third model wil be trained and the training for the same will begin. 
 
-**21st July to 28th July:** 
+**22nd July to 28th July:** 
 
-This time is kept free for any pending work as well as documenting the results.
+The results are compiled in this section and discussed further with the mentors. The models are then retrained.
 
-**28th July to 10th August:** 
+**29th July to 10th August:** 
 
-The documentation of the results are completed 
-
-**1st July to 7th July:** 
-
-Implement the part of the API specific to the second case. Some code will need to be added to get the `NodePort`/`LoadBalancer` IP in this case. Will also look for other modifications required.  
-
-**7th July to 14th July:** 
-
-Test and document the application up to this stage and ensure the two cases report correct results and function as expected.  
-
-**14th July to 21st July:** 
-
-Implement the deployAndExposePod function and check compatibility with code in the existing functions. Figure out if any modifications or utilities needed. 
-
+The results are again compiled and then a model is shorlisted. The model is then packaged as a class and documentation is provided for the same. 
 
 
 **10th to 17th August:** 
-Buffer to accommodate for unexpected delays or roadblocks.
 
+Period to account for any unforseen cirmumstances. 
 
-## Alternatives Considered
-* Make sure to discuss the relative merits of alternatives to your proposal.
 
 ## Questions and Discussion Topics
 
