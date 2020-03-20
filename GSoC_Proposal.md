@@ -49,6 +49,7 @@ There are three methods through which we could collect data
 
 ### Machine Learning Approaches
 
+---
 
 ### Convolutional Autoencoder based Anomaly Detection
 
@@ -82,7 +83,7 @@ Such a method can be used to find patterns between different anomaly types. This
 __Disadvantage__
 
 The optimization function doesent reflecrt the fact that anomalous and non anomalous data has to be seperated out. 
-
+---
 
 ### A Convolutional Classfication Model
 
