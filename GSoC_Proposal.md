@@ -88,9 +88,11 @@ The optimization function doesent reflecrt the fact that anomalous and non anoma
 __References__
 
 - [Convolutional Autoencoders for Noise Reduction](https://towardsdatascience.com/convolutional-autoencoders-for-image-noise-reduction-32fce9fc1763)
-- 
-- 
-- 
+- [SVM and KNN](https://www.ijraset.com/fileserve.php?FID=11852) 
+
+__Implementation Examples__
+
+- https://github.com/Seratna/TensorFlow-Convolutional-AutoEncoder
 
 ---
 
@@ -118,6 +120,14 @@ The optimization function is directly corelated to our objective.
 __Disadvantages__
 
 We won't be able to pinpoint a particualr type of anomaly 
+
+__References__
+
+- https://machinelearningmastery.com/binary-classification-tutorial-with-the-keras-deep-learning-library/
+
+__Implementation Examples__
+
+- https://github.com/tompee26/FF-CNN-Binary-Classification
 
 ---
 
@@ -154,6 +164,14 @@ __Disadvantages__
 
 We won't be able to pinpoint a particualr type of anomaly 
 
+__References__
+
+- https://towardsdatascience.com/one-shot-learning-with-siamese-networks-using-keras-17f34e75bb3d
+
+__Implementation Examples__
+
+- https://github.com/akshaysharma096/Siamese-Networks
+
 All three of these models would be trained and then depnding on the results of the evaluation paramtersr of the model, one of them would be decided.
 
 ## Evalutaion Parameters
@@ -171,6 +189,11 @@ For each of these models the following metrics would be claculated:
 - __REsults on testing data__ : Some classes (based on the rules) will not be used for training or validation. They will purely be used for testing purposes to know how the model would respond to never been seen before anomalous data.
 
 Depending on these results the models would be retrained, and later on a single model would be shorlisted from the three as a deliverable.
+
+__References__
+
+- https://machinelearningmastery.com/precision-recall-and-f-measure-for-imbalanced-classification/
+
 
 ## Retraining the Model
 
