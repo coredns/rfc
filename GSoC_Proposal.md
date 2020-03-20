@@ -212,31 +212,38 @@ More functions can be added on further discussion,
 
 ## Timeline
 
-**Before 27 April:** 
+**Before 27 April:**  
+
 I will go through the required DNS concepts as well as the essential features of Prometheus.
 
 **27 April to 18 May:** 
 
-I will communicate with the CoreDNS community and particiape in any intersting doscussion that comes up. I will further finialize this project by corresponding with the mentors as well as the mentors of the community. 
+I will communicate with the CoreDNS community and particiape in any intersting doscussion that comes up. I will further finialize the ideas regarding the project by corresponding with the mentors as well as the members of the community. 
 
 
 **18 May to 31st May:** 
 
-In this period, data collection will be 
+In this period, data collection will be main priority. Data would be collected from the simulation software. Moreover, a production server would be created (if its not readily avilable), and the data would be collected from the same. In addition to that, the data will be filtered and preprocessed for training on the three machine learning models
 
 **1st June to 7th June:** 
 
-Test the existing code rigorously and document the process. 
+The first model wil be trained and the training for the same will begin. 
 
-**7th June to 21st June:** 
+**8th June to 14th June:** 
 
-Take on the first case (deployed as a pod) and implement part of the specified API that caters to this situation. A lot of the code written in this period could be reused with some additions or logic control for the remaining cases.  
+The fsecond model wil be trained and the training for the same will begin. 
 
-**22nd June to 30th June:** 
+**15th June to 21st June:** 
 
-Test and document the existing code thoroughly.  
+The third model wil be trained and the training for the same will begin. 
 
+**21st July to 28th July:** 
 
+This time is kept free for any pending work as well as documenting the results.
+
+**28th July to 10th August:** 
+
+The documentation of the results are completed 
 
 **1st July to 7th July:** 
 
@@ -250,14 +257,7 @@ Test and document the application up to this stage and ensure the two cases repo
 
 Implement the deployAndExposePod function and check compatibility with code in the existing functions. Figure out if any modifications or utilities needed. 
 
-**21st July to 28th July:** 
 
-Test and document the code and ensure all the three cases work as expected.  
-
-**28th July to 10th August:** 
-
-Explore options for solving the fourth case and look for any hacks or contributions required to make it work.  
-Will also further test the code in different conditions and better the documentation of the entire project. 
 
 **10th to 17th August:** 
 Buffer to accommodate for unexpected delays or roadblocks.
