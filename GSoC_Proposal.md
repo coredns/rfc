@@ -43,6 +43,10 @@ There are three methods through which we could collect data
 
 - __Simulation of Normal Traffic__: We could use a simulation software that simulate Kubernets clusters to gee data metrics that correspond to non - anomalous data. The sofware that we can use is:
   - [k8s-cluster-simulator](https://github.com/pfnet-research/k8s-cluster-simulator) 
+  
+- __Get Acces to a Production Server__: We collect data from a procution server, and use that to train the Keras Model.
+
+
 
 
 This is the meat of the document, where you explain your proposal. If you have
