@@ -66,6 +66,8 @@ The loss function for the entire model is the mean squared error between the ino
 
 <p align = "center" ><a href="https://www.codecogs.com/eqnedit.php?latex=Loss_{AE}&space;=&space;\frac{1}{m}\sum_{i&space;=1}^{m}(F(X_i)&space;-&space;X_i)^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Loss_{AE}&space;=&space;\frac{1}{m}\sum_{i&space;=1}^{m}(F(X_i)&space;-&space;X_i)^2" title="Loss_{AE} = \frac{1}{m}\sum_{i =1}^{m}(F(X_i) - X_i)^2" /></a></p>
 
+Where, _F(X<sub>i</sub>)_ represnts the output of the Autoencoder, when the input data is _X<sub>i</sub>
+
 
 
 Since the data metrics are time dependant, a small modification would have to be done, to the input 'image' of the Convolutional Autoencoder. The input to the C
