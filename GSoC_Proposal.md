@@ -83,6 +83,7 @@ Such a method can be used to find patterns between different anomaly types. This
 __Disadvantage__
 
 The optimization function doesent reflecrt the fact that anomalous and non anomalous data has to be seperated out. 
+
 ---
 
 ### A Convolutional Classfication Model
@@ -99,6 +100,24 @@ The model will look something similar to this:
 The loss function for the entire model would be the binary cross entropy loss. The loss function is as follows: 
 
 <p align = "center" ><a href="https://www.codecogs.com/eqnedit.php?latex=Loss_{BC}&space;=&space;-&space;\frac{1}{m}&space;\sum_{i&space;=1}^{m}Y_{label_i}log(Y_{pred_i})&space;&plus;&space;(1&space;-&space;Y_{label_i})log(1&space;-&space;Y_{pred_i})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Loss_{BC}&space;=&space;-&space;\frac{1}{m}&space;\sum_{i&space;=1}^{m}Y_{label_i}log(Y_{pred_i})&space;&plus;&space;(1&space;-&space;Y_{label_i})log(1&space;-&space;Y_{pred_i})" title="Loss_{BC} = - \frac{1}{m} \sum_{i =1}^{m}Y_{label_i}log(Y_{pred_i}) + (1 - Y_{label_i})log(1 - Y_{pred_i})" /></a></p>
+
+Here, _Y_{label}_ gives the actual class of the data (whether it is an anomaly or not), and _Y_{pred}_ is the predicted label (whatthe model classifies the data as).
+
+__Advantages__
+
+The optimization function is directly corelated to our objective
+
+__Disadvantages__
+
+We won't be able to pinpoint a particualr type of anomaly 
+
+---
+
+### A Siameses based Classification Model
+
+The main objective of this model is to make sure that the latent vectors of non anomalous data are clustered close together, and that latent vectors of anomalous data are clustered togther, and also to make sure that the clusters of anomalous data and custers of non anomalous data are far apart. 
+
+
 
 This is the meat of the document, where you explain your proposal. If you have
 multiple alternatives, be sure to use sub-sections for better separation of the
