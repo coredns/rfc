@@ -44,13 +44,21 @@ There are three methods through which we could collect data
 - __Simulation of Normal Traffic__: We could use a simulation software that simulate Kubernets clusters to gee data metrics that correspond to non - anomalous data. The sofware that we can use is:
   - [k8s-cluster-simulator](https://github.com/pfnet-research/k8s-cluster-simulator) 
   
-- __Get Acces to a Production Server__: We collect data from a procution server, and use that to train the Keras Model.
+- __Get Acces to a Production Server__: We collect data metrics from a procution server, and use that to train the Keras Model.
 
 
 ### Machine Learning Approaches
 
 
+#### Convolutional Autoencoder based Anomaly Detection
 
+In this approach we'd be assuming that the data metrics we collect from both, the simulation as well as the production server are devoid of anomalies.
+
+A Convolutional Autoencoder is a mahcine learning model that is useful for compressing the information contained in the input data to a lower dimenaional latent vector (of much lower dimensions.) Such a structure is usefull, as it helps discard the unecessary information present in the input data. Moreover, it is easier to derive inferences regarding the input data while working with learned representations of lower dimensions. 
+
+
+
+Since the data metrics are time dependant, a small modification would have to be done, to the input 'image' of the Convolutional Autoencoder. The input to the C
 
 This is the meat of the document, where you explain your proposal. If you have
 multiple alternatives, be sure to use sub-sections for better separation of the
