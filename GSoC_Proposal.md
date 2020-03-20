@@ -54,11 +54,17 @@ There are three methods through which we could collect data
 
 In this approach we'd be assuming that the data metrics we collect from both, the simulation as well as the production server are devoid of anomalies.
 
-A Convolutional Autoencoder is a mahcine learning model that is useful for compressing the information contained in the input data to a lower dimenaional latent vector (of much lower dimensions.) Such a structure is usefull, as it helps discard the unecessary information present in the input data. Moreover, it is easier to derive inferences regarding the input data while working with learned representations of lower dimensions. 
+A Convolutional Autoencoder is a mahcine learning model that is useful for compressing the information contained in the input data to a lower dimenaional latent vector (of much lower dimensions.) Such a structure is usefull, as it helps discard the unecessary information present in the input data. Moreover, it is easier to derive inferences regarding the input data while working with learned representations of lower dimensions as it captures only the information that is relevant for reconstructing the data.  
 
 <p float="left" align = "center">
   <img src="https://miro.medium.com/max/1700/1*I5MVGIrROrAnD3U_2Jm1Ng.png" width="600"/>
 </p>
+
+The encoder is tasked with compressing the information into a low dimenaion. The decoder makes sure that the latent vector correctly captures the information regarding the inpit data. 
+
+The loss function for the entire model is the mean squared error between the inout and the output. The los function is as follows: 
+
+<p align = "center" ><a href="https://www.codecogs.com/eqnedit.php?latex=Loss_{AE}&space;=&space;\frac{1}{m}&space;\sum_{i&space;=1}^{m}(F(X_i)&space;-&space;X_i)^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Loss_{AE}&space;=&space;\frac{1}{m}&space;\sum_{i&space;=1}^{m}(F(X_i)&space;-&space;X_i)^2" title="Loss_{AE} = \frac{1}{m} \sum_{i =1}^{m}(F(X_i) - X_i)^2" /></a></p>
 
 
 
