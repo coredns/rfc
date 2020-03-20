@@ -208,15 +208,59 @@ def initalize_new_weights()
    # data: the data on which the model has to predict
 ```
 
+More functions can be added on further discussion, 
+
+## Timeline
+
+**Before 27 April:** 
+I will go through the required DNS concepts as well as the essential features of Prometheus.
+
+**27 April to 18 May:** 
+
+I will communicate with the CoreDNS community and particiape in any intersting doscussion that comes up. I will further finialize this project by corresponding with the mentors as well as the mentors of the community. 
 
 
-This is the meat of the document, where you explain your proposal. If you have
-multiple alternatives, be sure to use sub-sections for better separation of the
-idea, and list pros/cons to each approach. If there are alternatives that you
-have eliminated, you should also list those here, and explain why you believe
-your chosen approach is superior.
+**18 May to 31st May:** 
 
-Make sure you’ve thought through and addressed the following sections. If a section is not relevant to your specific proposal, please explain why, e.g. your RFC addresses a convention or process, not an API.
+In this period, data collection will be 
+
+**1st June to 7th June:** 
+
+Test the existing code rigorously and document the process. 
+
+**7th June to 21st June:** 
+
+Take on the first case (deployed as a pod) and implement part of the specified API that caters to this situation. A lot of the code written in this period could be reused with some additions or logic control for the remaining cases.  
+
+**22nd June to 30th June:** 
+
+Test and document the existing code thoroughly.  
+
+
+
+**1st July to 7th July:** 
+
+Implement the part of the API specific to the second case. Some code will need to be added to get the `NodePort`/`LoadBalancer` IP in this case. Will also look for other modifications required.  
+
+**7th July to 14th July:** 
+
+Test and document the application up to this stage and ensure the two cases report correct results and function as expected.  
+
+**14th July to 21st July:** 
+
+Implement the deployAndExposePod function and check compatibility with code in the existing functions. Figure out if any modifications or utilities needed. 
+
+**21st July to 28th July:** 
+
+Test and document the code and ensure all the three cases work as expected.  
+
+**28th July to 10th August:** 
+
+Explore options for solving the fourth case and look for any hacks or contributions required to make it work.  
+Will also further test the code in different conditions and better the documentation of the entire project. 
+
+**10th to 17th August:** 
+Buffer to accommodate for unexpected delays or roadblocks.
 
 
 ## Alternatives Considered
