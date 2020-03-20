@@ -137,7 +137,27 @@ This loss function would minimise the distance if _Y<sub>i</sub>_ is equal to 1 
 
 __Inferences from the Model__
 
-To understand whether the data metrics correspond to anomalous or non anomalous data, we cwill take the _L<sub>2</sub>_ norm between the latent vector rperestation of the data metric and the mean of the latent representation of the anomaly free data metrics as well as the mean of the latent representation of the anomalous data metrics. Whichever distance is smaller, that would be the class that the data is classified as. 
+To understand whether the data metrics correspond to anomalous or non anomalous data, we cwill take the _L<sub>2</sub>_ norm between the latent vector rperestation of the data metric and the mean of the latent representation of the anomaly free data metrics as well as the mean of the latent representation of the anomalous data metrics. Whichever distance is smaller, that would be the class that the data metric is classified as. 
+
+---
+
+All three of these models would be trained and then depnding on the results of the evaluation paramtersr of the model, one of them would be decided.
+
+## Evalutaion Parameters
+
+For each of these models the following metrics would be claculated:
+
+- __Confusion Matrix__ : This is the matrix that gives an idea about the number of True Positives, True Negatives, False Positives and False Negatives.
+
+- __PRescision__ : Precision is a metric that quantifies the number of correct positive predictions made. Therefore, Precision = TruePositives / (TruePositives + FalsePositives)
+
+- __Recall__ : Recall is a metric that quantifies the number of correct positive predictions made out of all positive predictions that could have been made. Therefore, Recall = TruePositives / (TruePositives + FalseNegatives)
+
+- __F Measure__ : F-Measure provides a way to combine both precision and recall into a single measure that captures both properties. Therefore, F-Measure = (2 * Precision * Recall) / (Precision + Recall) 
+
+- __REsults on testing data__ : Some classes (based on the rules) will not be used for training or validation. They will purely be used for testing purposes to know how the model would respond to never been seen before anomalous data.
+
+Depending on these results, a single model would be shorlisted from the three.
 
 
 
