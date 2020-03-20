@@ -83,7 +83,14 @@ Such a method can be used to find patterns between different anomaly types. This
 
 __Disadvantage__
 
-The optimization function doesent reflecrt the fact that anomalous and non anomalous data has to be seperated out. 
+The optimization function doesent reflecrt the fact that anomalous and non anomalous data has to be seperated out.
+
+__References__
+
+- [Convolutional Autoencoders for Noise Reduction](https://towardsdatascience.com/convolutional-autoencoders-for-image-noise-reduction-32fce9fc1763)
+- 
+- 
+- 
 
 ---
 
@@ -227,15 +234,15 @@ In this period, data collection will be main priority. Data would be collected f
 
 **1st June to 7th June:** 
 
-The first model wil be trained and the training for the same will begin. 
+The first model wil be created and training for the same will begin. 
 
 **8th June to 14th June:** 
 
-The fsecond model wil be trained and the training for the same will begin. 
+The fsecond model wil be created and training for the same will begin. 
 
 **15th June to 21st June:** 
 
-The third model wil be trained and the training for the same will begin. 
+The third model wil be created and training for the same will begin. 
 
 **22nd July to 28th July:** 
 
