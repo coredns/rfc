@@ -50,7 +50,7 @@ There are three methods through which we could collect data
 ### Machine Learning Approaches
 
 
-#### Convolutional Autoencoder based Anomaly Detection
+### Convolutional Autoencoder based Anomaly Detection
 
 In this approach we'd be assuming that the data metrics we collect from both, the simulation as well as the production server are devoid of anomalies.
 
@@ -70,7 +70,7 @@ Where, _F(X<sub>i</sub>)_ represnts the output of the Autoencoder, when the inpu
 
 Since the data metrics are time dependant, a small modification would have to be done, to the input 'image' of the Convolutional Autoencoder. In our case the time dependant metrics would be stacked up as a FIFO stack and used as the input to the Autoencoder. The input to the FIFO stack are the latest data mertrics. The size of the FIFO stack is a hyperparamter and can be changed depending on the results obtained during training.
 
-#### Inferences from the Model
+### Inferences from the Model
 
 Once the Autoencoder has been trained, the model will be tested on anomalous data metrics (these can be filtered out based on the 'rules' described in Prometheus). An _L<sub>2</sub>_ norm will be calcualted between the mean of the latent representation of the anomaly free data metrics and the anomalous data metrics. The lowest _L<sub>2</sub>_ norm will be considered a threshold, and any latent vector whose distance from the mean that is greater than the threshold is cnosidered to be dereived from anomalous data. 
 
