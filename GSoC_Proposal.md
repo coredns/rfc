@@ -18,8 +18,13 @@ non-goals? This is your executive summary; keep it short, elaborate below.
 
 To detect whether an anomaly has occured or not in a CoreDNS server, an engineer has to write specific 'rules'. If the data metrics follow those 'rules' they are classified as non - anomalies, however, if they violate these 'rules' they are classified as anomalies. Prometheus itself has these alerting rules. 
 
-The processs of writing effective rules requires a lot of testing as well as experience in the field and moreover it may so happen that the engineer may not include some edge cases that may give false positives or false negatives.In addition to that, these anomaly detection rules are only for specific anomalies and hence may not generalize to other anomalies. Hence, it would make sense to model anomaly detection as a machine learning problem where the models could learn the relations betweem the metrics and the anomaly. Moreover, this model can be conttinosuly updated based on new training data. 
-I also went through the alerting rules of Prometheus where each engineer has to manually write 'rules' to check whether an anomaly has occurred or not. Naturally, this process requires a lot of testing as well as experience in the field and moreover it may so happen that the engineer may not include some edge cases that may give false positives or false negatives. Moreover, these anomaly detection rules are only for specific anomalies and hence may not generalise to other anomalies. Hence, it would make sense to model this as a machine learning problem where the models could learn the relations between the metrics and the anomaly.
+The processs of writing effective rules requires a lot of testing as well as experience in the field and moreover it may so happen that the engineer may not include some edge cases that may give false positives or false negatives.In addition to that, these anomaly detection rules are only for specific anomalies and hence may not generalize to other anomalies. Hence, it would make sense to model anomaly detection as a machine learning problem where the models could learn the relations betweem the metrics and the anomaly, which would then lead to a generalized anomaly detection solution. Moreover, this model can be continousuly updated based on new training data, which leads to adaptibility in the anomaly detection problem.
+
+### Deliverables  
+
+- At the end of the GSoC period, I would be be delivering a Keras Model that would detect anomalies.
+- This model would be packaged as a part of the class. The class would contain various functions which would make it easy for anyone to retrain and modify the Keras Model, even those who have no idea about TensorFlow/Keras syntaxes
+
 
 Why this is a valuable problem to solve? Why is it related to CoreDNS?
 Can this be done outside the scope of CoreDNS?
