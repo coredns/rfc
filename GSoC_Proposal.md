@@ -35,6 +35,16 @@ Note exteranl repo maintained outside of CoreDNS org does not need a RFC.
 
 ## Design Proposal
 
+To train a machine learning model, the main ingredient is data. The following methods allow us to garner data that could be used to train our machine learning model:
+
+### Data Collection 
+---
+There are three methods through which we could collect data
+
+- __Simulation of Normal Traffic__: We could use a simulation software that simulate Kubernets clusters to gee data metrics that correspond to non - anomalous data. The sofware that we can use is:
+  - [k8s-cluster-simulator](https://github.com/pfnet-research/k8s-cluster-simulator) 
+
+
 This is the meat of the document, where you explain your proposal. If you have
 multiple alternatives, be sure to use sub-sections for better separation of the
 idea, and list pros/cons to each approach. If there are alternatives that you
