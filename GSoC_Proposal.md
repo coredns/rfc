@@ -119,7 +119,11 @@ The main objective of this model is to make sure that the distance between the  
 
 Similar o the previous two models, the data that would be used is data from the production server as well as the simulation. Moreover, since the data metrics are time dependant, a small modification would have to be done, to the input 'image' of the Convolutional Autoencoder. In our case the time dependant metrics would be stacked up as a FIFO stack and used as the input to the Autoencoder. The input to the FIFO stack are the latest data mertrics. The size of the FIFO stack is a hyperparamter and can be changed depending on the results obtained during training.
 
+The model will be similar to this:
 
+<p float="left" align = "center">
+  <img src="https://miro.medium.com/max/5122/1*v40QXakPBOmiq4lCKbPu8w.png" width="600"/>
+</p>
 
 
 
