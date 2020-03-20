@@ -133,11 +133,13 @@ The loss function is as follows:
 
 <p align = "center" ><a href="https://www.codecogs.com/eqnedit.php?latex=Loss_{SN}&space;=&space;\frac{1}{m}&space;\sum_{i&space;=1}^{m}Y_{label_i}(F(X_i)&space;-&space;X_i)^2&space;-&space;(1&space;-&space;Y_{label_i})(F(X_i)&space;-&space;X_i)^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Loss_{SN}&space;=&space;\frac{1}{m}&space;\sum_{i&space;=1}^{m}Y_{label_i}(F(X_i)&space;-&space;X_i)^2&space;-&space;(1&space;-&space;Y_{label_i})(F(X_i)&space;-&space;X_i)^2" title="Loss_{SN} = \frac{1}{m} \sum_{i =1}^{m}Y_{label_i}(F(X_i) - X_i)^2 - (1 - Y_{label_i})(F(X_i) - X_i)^2" /></a></p>
 
-This loss function would minimise the distance if _Y<sub>i</sub>_ is equal to 1 (data is of the same class) or maximise the distance if _Y<sub>i</sub>_ is equal to 0 (the data is of the same class)  
+This loss function would minimise the distance if _Y<sub>i</sub>_ is equal to 1 (data is of the same class) or maximise the distance if _Y<sub>i</sub>_ is equal to 0 (the data is of different classes)  
 
 __Inferences from the Model__
 
-Once the Autoencoder has been trained, the model will be tested on anomalous data metrics (these can be filtered out based on the 'rules' described in Prometheus). An _L<sub>2</sub>_ norm will be calcualted between the mean of the latent representation of the anomaly free data metrics and the anomalous data metrics. The lowest _L<sub>2</sub>_ norm will be considered a threshold, and any latent vector whose distance from the mean that is greater than the threshold is cnosidered to be dereived from anomalous data. 
+To understand whether the data metrics correspond to anomalous or non anomalous data, we cwill take the _L<sub>2</sub>_ norm between the latent vector rperestation of the data metric and the mean of the latent representation of the anomaly free data metrics as well as the mean of the latent representation of the anomalous data metrics. Whichever distance is smaller, that would be the class that the data is classified as. 
+
+
 
 
 This is the meat of the document, where you explain your proposal. If you have
