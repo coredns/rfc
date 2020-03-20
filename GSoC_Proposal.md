@@ -115,7 +115,11 @@ We won't be able to pinpoint a particualr type of anomaly
 
 ### A Siameses based Classification Model
 
-The main objective of this model is to make sure that the latent vectors of non anomalous data are clustered close together, and that latent vectors of anomalous data are clustered togther, and also to make sure that the clusters of anomalous data and custers of non anomalous data are far apart. 
+The main objective of this model is to make sure that the distance between the  latent vectors of non anomalous data is as small as possible, the distance between latent vectors of anomalous data is as small as possible, and also that the distance between anomalous and non - anomalous data is as large as possible, which in turn creates a cluster of anomalous data metrics in latent space that is far apart from the cluster of non-anomlaous data mterics in latent space, 
+
+Similar o the previous two models, the data that would be used is data from the production server as well as the simulation. Moreover, since the data metrics are time dependant, a small modification would have to be done, to the input 'image' of the Convolutional Autoencoder. In our case the time dependant metrics would be stacked up as a FIFO stack and used as the input to the Autoencoder. The input to the FIFO stack are the latest data mertrics. The size of the FIFO stack is a hyperparamter and can be changed depending on the results obtained during training.
+
+
 
 
 
