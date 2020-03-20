@@ -66,11 +66,15 @@ The loss function for the entire model is the mean squared error between the ino
 
 <p align = "center" ><a href="https://www.codecogs.com/eqnedit.php?latex=Loss_{AE}&space;=&space;\frac{1}{m}\sum_{i&space;=1}^{m}(F(X_i)&space;-&space;X_i)^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Loss_{AE}&space;=&space;\frac{1}{m}\sum_{i&space;=1}^{m}(F(X_i)&space;-&space;X_i)^2" title="Loss_{AE} = \frac{1}{m}\sum_{i =1}^{m}(F(X_i) - X_i)^2" /></a></p>
 
-Where, _F(X<sub>i</sub>)_ represnts the output of the Autoencoder, when the input data is _X<sub>i</sub>
+Where, _F(X<sub>i</sub>)_ represnts the output of the Autoencoder, when the input data is _X<sub>i</sub>_.
 
+Since the data metrics are time dependant, a small modification would have to be done, to the input 'image' of the Convolutional Autoencoder. In our case the time dependant metrics would be stacked up as a FIFO stack and used as the input to the Autoencoder. The input to the FIFO stack are the latest data mertrics. The size of the FIFO stack is a hyperparamter and can be changed depending on the results obtained during training.
 
+#### Inferences from the Model
 
-Since the data metrics are time dependant, a small modification would have to be done, to the input 'image' of the Convolutional Autoencoder. The input to the C
+Once the Autoencoder has been trained, the model will be tested on anomalous data metrics (these can be filtered out based on the 'rules' described in Prometheus). An _L<sub>2</sub>_ norm will be calcualted between the mean of the latent representation of the anomaly free data metrics and the anomalous data metrics. The lowest _L<sub>2</sub>_ norm will be considered a threshold, and any latent vector whose distance from the mean that is greater than the threshold is cnosidered to be dereived from anomalous data. 
+
+Retraining would be 
 
 This is the meat of the document, where you explain your proposal. If you have
 multiple alternatives, be sure to use sub-sections for better separation of the
