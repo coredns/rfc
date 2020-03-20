@@ -24,7 +24,7 @@ The processs of writing effective rules requires a lot of testing as well as exp
 
 - At the end of the GSoC period, I would be be delivering a Keras Model that would detect anomalies.
 - This model would be packaged as a part of the class. The class would contain various functions which would make it easy for anyone to retrain and modify the Keras Model, even those who have no idea about TensorFlow/Keras syntaxes
-- At end of the prohject, we would have a huge collection of Prometheus data metrics which couls also be used for somone else to train other models as well as develop better alerting 'rules' 
+- At end of the project, we would have a huge collection of Prometheus data metrics which couls also be used for somone else to train other models as well as develop better alerting 'rules' 
 
 Why this is a valuable problem to solve? Why is it related to CoreDNS?
 Can this be done outside the scope of CoreDNS?
@@ -45,6 +45,9 @@ There are three methods through which we could collect data
   - [k8s-cluster-simulator](https://github.com/pfnet-research/k8s-cluster-simulator) 
   
 - __Get Acces to a Production Server__: We collect data from a procution server, and use that to train the Keras Model.
+
+
+### Machine Learning Approaches
 
 
 
