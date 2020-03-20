@@ -106,7 +106,7 @@ Here, _Y_{label}_ gives the actual class of the data (whether it is an anomaly o
 
 __Advantages__
 
-The optimization function is directly corelated to our objective
+The optimization function is directly corelated to our objective. 
 
 __Disadvantages__
 
@@ -171,7 +171,7 @@ Retraining the model will be of prime importance, as if the engineer pbserves so
 
 ## Packaging it as a Class
 
-The trained model would be packaged as a class. Moreover the classes would contain functions (given below) that would make training and adding new layers to the network much easier for anyone, even if he/she has no prior knowledge about TensorFlow/Keras syntaxes.
+The trained model would be packaged as a class. Moreover the classes would contain functions (given below) that would make training and testing the model much easier, even if he/she has no prior knowledge about TensorFlow/Keras syntaxes. The functions are as follows: 
 
 ```python
 def import_weights()
@@ -180,6 +180,33 @@ def import_weights()
    """
 ```
 
+```python
+def initalize_new_weights()
+   """
+     Initializes new weights to the network
+   """
+```
+
+```python
+ def train(number_of_iterations, batch_size, data)
+   """
+     Trains the network depending on certain hyperparameters
+   """ 
+   # Args:
+   # number_of_iterations: determines the number of iterations 
+   # the model trains for
+   # batch_size: determines the batch size
+   # data: the data on which the model trains
+```
+
+```python
+ def predcit(data)
+   """
+     Predicts the class of the data
+   """ 
+   # Args:
+   # data: the data on which the model has to predict
+```
 
 
 
