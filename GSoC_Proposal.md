@@ -122,7 +122,7 @@ Similar o the previous two models, the data that would be used is data from the 
 The model will be similar to this:
 
 <p float="left" align = "center">
-  <img src="https://miro.medium.com/max/5122/1*v40QXakPBOmiq4lCKbPu8w.png" width="600"/>
+  <img src="https://miro.medium.com/max/960/1*g-561DsAfbU6gcVEk9AC4g.jpeg" width="600"/>
 </p>
 
 
