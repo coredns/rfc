@@ -88,7 +88,12 @@ The optimization function doesent reflecrt the fact that anomalous and non anoma
 
 This would be a simple Convolutional Classification Model that predicts whetger the data metric corresponds to an anomaly or not. The model would basically be a binary classifier that predicts whether the data metrics coorespond to an anomaly ot not. The data that would be used is data from the production server as well as the simulation. 
 
+Similar to the previous model, since the data metrics are time dependant, a small modification would have to be done, to the input 'image' of the Convolutional Autoencoder. In our case the time dependant metrics would be stacked up as a FIFO stack and used as the input to the Autoencoder. The input to the FIFO stack are the latest data mertrics. The size of the FIFO stack is a hyperparamter and can be changed depending on the results obtained during training.
 
+The model will look something similar to this:
+<p float="left" align = "center">
+  <img src="http://www.wildml.com/wp-content/uploads/2015/11/Screen-Shot-2015-11-06-at-12.05.40-PM.png" width="600"/>
+</p>
 
 This is the meat of the document, where you explain your proposal. If you have
 multiple alternatives, be sure to use sub-sections for better separation of the
