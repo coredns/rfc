@@ -126,6 +126,11 @@ The model will be similar to this:
 </p>
 
 
+In a siamese network a pair of iamges are fed into the same network. If the images belong to the same class, then the distance is minimised. Else the distance is maximised.
+
+The loss function is as follows: 
+
+<p align = "center" ><a href="https://www.codecogs.com/eqnedit.php?latex=Loss_{SN}&space;=&space;\frac{1}{m}&space;\sum_{i&space;=1}^{m}Y_{label_i}(F(X_i)&space;-&space;X_i)^2&space;-&space;(1&space;-&space;Y_{label_i})(F(X_i)&space;-&space;X_i)^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Loss_{SN}&space;=&space;\frac{1}{m}&space;\sum_{i&space;=1}^{m}Y_{label_i}(F(X_i)&space;-&space;X_i)^2&space;-&space;(1&space;-&space;Y_{label_i})(F(X_i)&space;-&space;X_i)^2" title="Loss_{SN} = \frac{1}{m} \sum_{i =1}^{m}Y_{label_i}(F(X_i) - X_i)^2 - (1 - Y_{label_i})(F(X_i) - X_i)^2" /></a></p>
 
 This is the meat of the document, where you explain your proposal. If you have
 multiple alternatives, be sure to use sub-sections for better separation of the
