@@ -46,6 +46,7 @@ There are three methods through which we could collect data
   
 - __Get Acces to a Production Server__: We collect data metrics from a procution server, and use that to train the Keras Model.
 
+The data would be split as follows. 80% would be used for training and the other 20% for validation. 
 
 ### Machine Learning Approaches
 
@@ -71,7 +72,7 @@ Where, _F(X<sub>i</sub>)_ represnts the output of the Autoencoder, when the inpu
 
 Since the data metrics are time dependant, a small modification would have to be done, to the input 'image' of the Convolutional Autoencoder. In our case the time dependant metrics would be stacked up as a FIFO stack and used as the input to the Autoencoder. The input to the FIFO stack are the latest data mertrics. The size of the FIFO stack is a hyperparamter and can be changed depending on the results obtained during training.
 
-### Inferences from the Model
+__Inferences from the Model__
 
 Once the Autoencoder has been trained, the model will be tested on anomalous data metrics (these can be filtered out based on the 'rules' described in Prometheus). An _L<sub>2</sub>_ norm will be calcualted between the mean of the latent representation of the anomaly free data metrics and the anomalous data metrics. The lowest _L<sub>2</sub>_ norm will be considered a threshold, and any latent vector whose distance from the mean that is greater than the threshold is cnosidered to be dereived from anomalous data. 
 
@@ -131,6 +132,13 @@ In a siamese network a pair of iamges are fed into the same network. If the imag
 The loss function is as follows: 
 
 <p align = "center" ><a href="https://www.codecogs.com/eqnedit.php?latex=Loss_{SN}&space;=&space;\frac{1}{m}&space;\sum_{i&space;=1}^{m}Y_{label_i}(F(X_i)&space;-&space;X_i)^2&space;-&space;(1&space;-&space;Y_{label_i})(F(X_i)&space;-&space;X_i)^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Loss_{SN}&space;=&space;\frac{1}{m}&space;\sum_{i&space;=1}^{m}Y_{label_i}(F(X_i)&space;-&space;X_i)^2&space;-&space;(1&space;-&space;Y_{label_i})(F(X_i)&space;-&space;X_i)^2" title="Loss_{SN} = \frac{1}{m} \sum_{i =1}^{m}Y_{label_i}(F(X_i) - X_i)^2 - (1 - Y_{label_i})(F(X_i) - X_i)^2" /></a></p>
+
+This loss function would minimise the distance if _Y<sub>i</sub>_ is equal to 1 (data is of the same class) or maximise the distance if _Y<sub>i</sub>_ is equal to 0 (the data is of the same class)  
+
+__Inferences from the Model__
+
+Once the Autoencoder has been trained, the model will be tested on anomalous data metrics (these can be filtered out based on the 'rules' described in Prometheus). An _L<sub>2</sub>_ norm will be calcualted between the mean of the latent representation of the anomaly free data metrics and the anomalous data metrics. The lowest _L<sub>2</sub>_ norm will be considered a threshold, and any latent vector whose distance from the mean that is greater than the threshold is cnosidered to be dereived from anomalous data. 
+
 
 This is the meat of the document, where you explain your proposal. If you have
 multiple alternatives, be sure to use sub-sections for better separation of the
