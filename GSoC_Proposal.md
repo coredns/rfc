@@ -95,6 +95,10 @@ The model will look something similar to this:
   <img src="http://www.wildml.com/wp-content/uploads/2015/11/Screen-Shot-2015-11-06-at-12.05.40-PM.png" width="600"/>
 </p>
 
+The loss function for the entire model would be the binary cross entropy loss. The loss function is as follows: 
+
+<p align = "center" ><a href="https://www.codecogs.com/eqnedit.php?latex=Loss_{BC}&space;=&space;-&space;\frac{1}{m}&space;\sum_{i&space;=1}^{m}Y_{label_i}log(Y_{pred_i})&space;&plus;&space;(1&space;-&space;Y_{label_i})log(1&space;-&space;Y_{pred_i})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Loss_{BC}&space;=&space;-&space;\frac{1}{m}&space;\sum_{i&space;=1}^{m}Y_{label_i}log(Y_{pred_i})&space;&plus;&space;(1&space;-&space;Y_{label_i})log(1&space;-&space;Y_{pred_i})" title="Loss_{BC} = - \frac{1}{m} \sum_{i =1}^{m}Y_{label_i}log(Y_{pred_i}) + (1 - Y_{label_i})log(1 - Y_{pred_i})" /></a></p>
+
 This is the meat of the document, where you explain your proposal. If you have
 multiple alternatives, be sure to use sub-sections for better separation of the
 idea, and list pros/cons to each approach. If there are alternatives that you
