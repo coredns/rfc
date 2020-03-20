@@ -74,7 +74,21 @@ Since the data metrics are time dependant, a small modification would have to be
 
 Once the Autoencoder has been trained, the model will be tested on anomalous data metrics (these can be filtered out based on the 'rules' described in Prometheus). An _L<sub>2</sub>_ norm will be calcualted between the mean of the latent representation of the anomaly free data metrics and the anomalous data metrics. The lowest _L<sub>2</sub>_ norm will be considered a threshold, and any latent vector whose distance from the mean that is greater than the threshold is cnosidered to be dereived from anomalous data. 
 
-Retraining would be 
+
+__Advantages__
+
+Such a method can be used to find patterns between different anomaly types. This can be done by using a K-Means Clustering Algorithm or SVM's
+
+__Disadvantage__
+
+The optimization function doesent reflecrt the fact that anomalous and non anomalous data has to be seperated out. 
+
+
+### A Convolutional Classfication Model
+
+This would be a simple Convolutional Classification Model that predicts whetger the data metric corresponds to an anomaly or not. 
+
+
 
 This is the meat of the document, where you explain your proposal. If you have
 multiple alternatives, be sure to use sub-sections for better separation of the
