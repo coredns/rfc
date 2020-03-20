@@ -86,7 +86,7 @@ The optimization function doesent reflecrt the fact that anomalous and non anoma
 
 ### A Convolutional Classfication Model
 
-This would be a simple Convolutional Classification Model that predicts whetger the data metric corresponds to an anomaly or not. 
+This would be a simple Convolutional Classification Model that predicts whetger the data metric corresponds to an anomaly or not. The model would basically be a binary classifier that predicts whether the data metrics coorespond to an anomaly ot not. The data that would be used is data from the production server as well as the simulation. 
 
 
 
