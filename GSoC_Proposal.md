@@ -139,7 +139,13 @@ __Inferences from the Model__
 
 To understand whether the data metrics correspond to anomalous or non anomalous data, we cwill take the _L<sub>2</sub>_ norm between the latent vector rperestation of the data metric and the mean of the latent representation of the anomaly free data metrics as well as the mean of the latent representation of the anomalous data metrics. Whichever distance is smaller, that would be the class that the data metric is classified as. 
 
----
+__Advantages__
+
+The optimization function is directly corelated to our objective
+
+__Disadvantages__
+
+We won't be able to pinpoint a particualr type of anomaly 
 
 All three of these models would be trained and then depnding on the results of the evaluation paramtersr of the model, one of them would be decided.
 
@@ -161,7 +167,21 @@ Depending on these results the models would be retrained, and later on a single 
 
 ## Retraining the Model
 
-Retraining the model will be of prime importance, as if the engineer pbserves some anomalous  
+Retraining the model will be of prime importance, as if the engineer pbserves some anomalous but the model predicts that no anomaly occured. In that case, the engineer labels this data and then the model is retrained. This is applicalbe  only for models 2 and 3. 
+
+## Packaging it as a Class
+
+The trained model would be packaged as a class. Moreover the classes would contain functions (given below) that would make training and adding new layers to the network much easier for anyone, even if he/she has no prior knowledge about TensorFlow/Keras syntaxes.
+
+'''python
+def import_weights()
+   """
+     Imports the trained weights
+   """
+'''
+
+
+
 
 This is the meat of the document, where you explain your proposal. If you have
 multiple alternatives, be sure to use sub-sections for better separation of the
