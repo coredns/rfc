@@ -56,6 +56,10 @@ In this approach we'd be assuming that the data metrics we collect from both, th
 
 A Convolutional Autoencoder is a mahcine learning model that is useful for compressing the information contained in the input data to a lower dimenaional latent vector (of much lower dimensions.) Such a structure is usefull, as it helps discard the unecessary information present in the input data. Moreover, it is easier to derive inferences regarding the input data while working with learned representations of lower dimensions. 
 
+<p float="left" align = "center">
+  <img src="https://miro.medium.com/max/1700/1*I5MVGIrROrAnD3U_2Jm1Ng.png" width="600"/>
+</p>
+
 
 
 Since the data metrics are time dependant, a small modification would have to be done, to the input 'image' of the Convolutional Autoencoder. The input to the C
