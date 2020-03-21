@@ -10,19 +10,19 @@
 
 ## Objective
 
-The aim of this project is to try and detect anomalies that occur in a CoreDNS server using a machine learning model developed in Keras. This project would help automise the process of anomaly detection, and reduce the necessity to write anomaly detection 'rules'. 
+This project aims to try and detect anomalies that occur in a CoreDNS server using a machine learning model developed in Keras. This project would help automate the process of anomaly detection, and reduce the necessity to write anomaly detection 'rules'. 
 
 ## Motivation and Scope
 
-To detect whether an anomaly has occured or not in a CoreDNS server, an engineer has to write specific 'rules'. If the data metrics follow those 'rules' they are classified as non - anomalies, however, if they violate these 'rules' they are classified as anomalies. Prometheus itself has these alerting rules. 
+To detect whether an anomaly has occurred or not in a CoreDNS server, an engineer has to write specific 'rules'. If the data metrics follow those 'rules' they are classified as non - anomalies, however, if they violate these 'rules' they are classified as anomalies. Prometheus itself has these alerting rules. 
 
-The processs of writing effective rules requires a lot of testing as well as experience in the field and moreover it may so happen that the engineer may not include some edge cases that may give false positives or false negatives. In addition to that, these anomaly detection 'rules' are only written for specific anomalies and hence may not generalize to other anomalies. Therefore, it would make sense to model anomaly detection as a machine learning problem where the models could learn the relations betweem the metrics and the anomaly, which would then lead to a generalized anomaly detection solution. Moreover, this model can be continuously updated based on new training data, which leads to adaptibility in the anomaly detection problem.
+The process of writing effective rules requires a lot of testing as well as experience in the field and moreover, it may so happen that the engineer may not include some edge cases that may give false positives or false negatives. In addition to that, these anomaly detection 'rules' are only written for specific anomalies and hence may not generalize to other anomalies. Therefore, it would make sense to model anomaly detection as a machine learning problem where the models could learn the relations between the metrics and the anomaly, which would then lead to a generalized anomaly detection solution. Moreover, this model can be continuously updated based on new training data, which leads to adaptability in the anomaly detection problem.
 
 ### Deliverables  
 
-- At the end of the GSoC period, I would be be delivering a Keras Model that would detect anomalies.
+- At the end of the GSoC period, I would be delivering a Keras Model that would detect anomalies.
 - This model would be packaged as a part of the class. The class would contain various functions which would make it easy for anyone to retrain and modify the Keras Model, even those who have no idea about TensorFlow/Keras syntaxes
-- At end of the project, we would have a huge collection of Prometheus data metrics which could also be used for somone else to train other models as well as develop better alerting 'rules' 
+- At the end of the project, we would have a huge collection of Prometheus data metrics which could also be used for someone else to train other models as well as develop better alerting 'rules' 
 
 ## Design Proposal
 
@@ -32,12 +32,11 @@ To train a machine learning model, the main ingredient is data. The following me
 ---
 There are two methods through which we could collect data
 
-- __Simulation of Data Traffic in a cluster__: We could use a simulation software that simulates Kubernets clusters to obtain data metrics that correspond to non - anomalous data. The sofware that we can use is: [k8s-cluster-simulator](https://github.com/pfnet-research/k8s-cluster-simulator) .
+- __Simulation of Data Traffic in a cluster__: We could use simulation software that simulates Kubernetes clusters to obtain data metrics that correspond to non - anomalous data. The software that we can use is: [k8s-cluster-simulator](https://github.com/pfnet-research/k8s-cluster-simulator).
   
 - __Collecting Data from a Production Server__: We collect data metrics from a production server, and use that to train the Keras Model.
 
-The data would be split as follows. 70% would be used for training, 15% for validation and 15% for testing. 
-
+The data would be split as follows. 70% would be used for training, 15% for validation and 15% for testing.
 ### Machine Learning Approaches
 
 ---
