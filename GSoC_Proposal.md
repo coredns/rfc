@@ -2,7 +2,7 @@
 
 | Status        | Proposed       |
 :-------------- |:---------------------------------------------------- |
-| **RFC #**     | [NNN](https://github.com/coredns/rfc/pull/NNN) (update when you have RFC PR #)|
+| **RFC #**     | [#4]|
 | **Author(s)** | Chanakya Ekbote (@Chanakya-Ekbote) |
 | **Sponsor**   |   |
 | **Updated**   | 2020-03-21 |
