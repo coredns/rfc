@@ -237,48 +237,46 @@ def initalize_new_weights()
 
 More functions will be added on further discussion.
 
-## Timeline
-
 **Before 27 April:**  
 
 I will go through the required DNS concepts as well as the essential features of Prometheus.
 
 **27 April to 18 May:** 
 
-I will communicate with the CoreDNS community and particiape in any intersting doscussion that comes up. I will further finialize the ideas regarding the project by corresponding with the mentors as well as the members of the community. 
+I will communicate with the CoreDNS community and participate in any interesting discussion that comes up. I will further finalize the ideas regarding the project by corresponding with the mentors as well as the members of the community. 
 
 
 **18 May to 31st May:** 
 
-In this period, data collection will be main priority. Data would be collected from the simulation software. Moreover, a production server would be created (if its not readily avilable), and the data would be collected from the same. In addition to that, the data will be filtered and preprocessed for training on the three machine learning models
+In this period, data collection will be the main priority. Data would be collected from the simulation software. Moreover, a production server would be created (if it's not readily available), and the data would be collected from the same. In addition to that, the data will be filtered and preprocessed for training for the three machine learning models
 
 **1st June to 7th June:** 
 
-The first model wil be created and training for the same will begin. 
+The first model will be created and training for the same will begin.  Note that training will encompass hyperparameter tuning using Talos.
 
 **8th June to 14th June:** 
 
-The fsecond model wil be created and training for the same will begin. 
+The second model will be created and training for the same will begin. Note that training will encompass hyperparameter tuning using Talos.
 
 **15th June to 21st June:** 
 
-The third model wil be created and training for the same will begin. 
+The third model will be created and training for the same will begin. Note that training will encompass hyperparameter tuning using Talos.
 
 **22nd July to 28th July:** 
 
-The results are compiled in this section and discussed further with the mentors. The models are then retrained.
+The results are compiled in this section and discussed further with the mentors. The models are then retrained depending on mentor feedback as well as the results obtained. 
 
 **29th July to 10th August:** 
 
-The results are again compiled and then a model is shorlisted. The model is then packaged as a class and documentation is provided for the same. 
-
+The results are again compiled and then a model is shortlisted. The model is then packaged as a class and documentation is provided for the same. 
 
 **10th to 17th August:** 
 
-Period to account for any unforseen cirmumstances. 
-
+Period to account for any unforeseen delays. 
 
 ## Questions and Discussion Topics
 
-Seed this with open questions you require feedback on from the RFC process.
+- Should I create a classification model that can also detect what type of anomaly it is? This can be created as an extension on top of the previous models.
+
+
 
