@@ -103,7 +103,7 @@ The loss function for the entire model would be the binary cross entropy loss. T
 
 <p align = "center" ><a href="https://www.codecogs.com/eqnedit.php?latex=Loss_{BC}&space;=&space;-&space;\frac{1}{m}&space;\sum_{i&space;=1}^{m}Y_{label_i}log(Y_{pred_i})&space;&plus;&space;(1&space;-&space;Y_{label_i})log(1&space;-&space;Y_{pred_i})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Loss_{BC}&space;=&space;-&space;\frac{1}{m}&space;\sum_{i&space;=1}^{m}Y_{label_i}log(Y_{pred_i})&space;&plus;&space;(1&space;-&space;Y_{label_i})log(1&space;-&space;Y_{pred_i})" title="Loss_{BC} = - \frac{1}{m} \sum_{i =1}^{m}Y_{label_i}log(Y_{pred_i}) + (1 - Y_{label_i})log(1 - Y_{pred_i})" /></a></p>
 
-Here, _Y_{label}_ gives the actual class of the data (whether it is an anomaly or not), and _Y_{pred}_ is the predicted label (what the model classifies the data as).
+Here, _Y<sub>label}</sub>_ gives the actual class of the data (whether it is an anomaly or not), and _Y<sub>pred}</sub>_ is the predicted label (what the model classifies the data as).
 
 __Advantages__
 
