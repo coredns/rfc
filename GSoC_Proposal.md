@@ -186,6 +186,11 @@ __References__
 
 - https://machinelearningmastery.com/precision-recall-and-f-measure-for-imbalanced-classification/
 
+---
+
+## Hyperparameter Tuning 
+
+Given the fact that we’ll be working on tuning various models, tuning the hyperparameters manually is a cumbersome task. Hence, we’d be using a tool [Talos](https://github.com/autonomio/talos). It helps in automating the process of hyperparameter tuning. Moreover, we would be using [TensorBoard](https://www.tensorflow.org/tensorboard) to visualize the results. 
 
 ## Retraining the Model
 
@@ -230,7 +235,7 @@ def initalize_new_weights()
    # data: the data on which the model has to predict
 ```
 
-More functions can be added on further discussion, 
+More functions will be added on further discussion.
 
 ## Timeline
 
