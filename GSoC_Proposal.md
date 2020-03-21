@@ -123,7 +123,7 @@ __Implementation Examples__
 
 ---
 
-### A Siameses based Classification Model
+### A Siamese Network based Classification Model
 
 The main objective of this model is to make sure that the distance between the  latent vectors of non - anomalous data is as small as possible, the distance between latent vectors of anomalous data metrics  is as small as possible, and also that the distance between anomalous and non - anomalous data is as large as possible, which in turn creates a cluster of anomalous data metrics in latent space that is far apart from the cluster of non-anomalous data metrics in latent space, 
 
