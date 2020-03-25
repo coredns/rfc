@@ -12,76 +12,83 @@
 
 CoreDNS is the cluster DNS server for Kubernetes and is very critical for the overall health of the Kubernetes cluster. It is important to monitor the health of CoreDNS itself and restarting or repairing any CoreDNS pods that are not behaving correctly.  
  
-While CoreDNS exposes a health check itself in the form of Kubernetes’ `livenessProbe`: 
-
-
-- The health check is not UDP (DNS) based. There have been cases where the health port is accessible (for TCP) but CoreDNS itself isn't (UDP). This protocol difference means that CoreDNS is unhealthy from a cluster standpoint, but the control plane can't see this.  
-- The existing health check is also launched locally (the `kubelet` uses the `livenessProbe`) and the situation could be different for pods accessing it remotely. 
+There is a need for a reliable way to validate that the CoreDNS pods are providing DNS resolution services to entities outside of a specific cluster. This health check should be external to the CoreDNS binary and not get affected by CoreDNS outages.
  
 ## Motivation and Scope
 
 
-This project idea aims to get around limitations on Kubernetes’ health check and build an application that: 
+The goal of this project is listed below:
+
+- An application that performs UDP-based DNS requests against the Kubernetes cluster and validates that the received DNS responses match expected responses.
+- The application will restart CoreDNS pods via the Kubernetes API when the previously executed validations fail.
 
 
-- Checks CoreDNS health externally through UDP (DNS), from a remote Golang application. 
-- Restart CoreDNS pods by interacting with Kubernetes API through the Golang application, if the response from the cluster and pod IPs is unsatisfactory.  
+While CoreDNS exposes a health check itself in the form of Kubernetes’ `livenessProbe`: 
 
-Thus, making the state of CoreDNS available externally and reliably is important to ensure important services run as they are expected to. A shell script could’ve been used to automate the steps but shell is not good in error handling and may not be reliable depending on which shell (bash/csh/zsh) to use. A Golang program will be much more robust.  
+
+- The health check is not UDP (DNS) based. There have been cases where the health port is accessible (for TCP) but CoreDNS itself isn't (UDP). This protocol difference means that CoreDNS is unhealthy from a cluster standpoint, but the control plane can't see this.  
+- The existing health check is also launched locally (the `kubelet` uses the `livenessProbe`) and the situation could be different for pods accessing it remotely.   
  
 ### Deliverables  
 
 
-- A standalone Golang application to check CoreDNS health: 
-  - The binary delivered through this project will be a **flexible** application in that it could choose its approach to the problem depending on the environment it is deployed in and the access that has been provided to it.   
-  - The health check program itself doesn’t necessarily reside in the Kubernetes cluster. 
+- The deliverable is a standalone Golang binary: 
+  - The binary will be a **flexible** application because it could choose its approach to the problem depending on the environment it is deployed in and the access that has been provided to it.   
+  - The binary can be deployed anywhere, inside or outside of a Kubernetes cluster. 
   - This binary only concerns itself with the health of CoreDNS deployed on Kubernetes. It doesn’t cover other scenarios. 
 
 
 - Proper documentation for the product explaining steps and the concepts used. 
- 
+ **TODO**
  
  
 
  
 ## Design Proposal 
 
-
-It is necessary to consider all possible cases because the way any team deploys the binary is their **choice** and we should not be forcing a modus operandi to use the product.  
  
-Minimal assumptions about the users’ Kubernetes deployment are made and the primary **focus** is to build a program that could easily be adopted by more teams (which may have different preferences of deployment). 
- 
-In any case, the binary will accomplish the following fundamental tasks: 
+The binary is designed keeping in mind the breadth of deployment options available and is made to be flexible to work in all scenarios.
+Minimal assumptions about the users’ Kubernetes deployment are made and the primary **focus** is to build a program that could easily be adopted by more teams (which may have different preferences of deployment).
 
 
-- Use `kubectl` to extract information about the cluster and its services and pods.  
+First, the application extracts information about Kubernetes cluster, including its services and pods.
+The application does it by querying the cluster via Kubernetes API. If the application is unable to reach the cluster, then a prompt to check the deployment settings is displayed.
+     
  
-  This will help determine the procedure to follow and also facilitate the subsequent actions to take. This step can be completed only when the application can connect and communicate with the API server. The Go [client](https://github.com/kubernetes/client-go) for Kubernetes has packages that can discover and authenticate with the API server.  
+Second, it discovers relevant IP addresses, e.g. cluster and pod IP addresses, of
+CoreDNS service and pods in the cluster from the information
+received from Kubernetes API.  
+The previously discovered cluster IP and the pod IP, both need to be pinged because in real production systems, any point of the system could fail. We cannot make the assumption that Kubernetes networking (forwarding requests from the Service IP to the Pods) will work all the time.  
+Apart from this, it’ll be useful to know which Pods are sick, so they can be remedied individually.
+
+If there are no CoreDNS pods or service, then .....TODO
  
-- Find the IP address (cluster IP and pod IP) of the CoreDNS service and pods.  
  
-  These IP addresses will be used for the `dig` operation in the next steps. It is critical to use both cluster IP and the pod IP. Although it may seem that pinging cluster IP would be sufficient, in real production systems, any point of the system could fail. We cannot make the assumption that Kubernetes networking (forwarding requests from the Service IP to the Pods) will work all the time.  
  
-  Apart from this, it’ll be useful to know which Pods are sick, so they can be remedied individually.  
- 
-- Use `dig` to ping the cluster IP and pod IPs through DNS. 
- 
-  `dig` is a tool that can be used to look up DNS servers using their IP addresses and port numbers (default is 53). The output of the command execution will help determine whether the DNS service is healthy or not.  
- 
-- Restart CoreDNS pods through the API server if pods are up and running but DNS reply does not match the expectation. 
+Finally, it iterates through the IP addresses and perform dns lookup on them. The CoreDNS pods are restarted through the API server if pods are up and running but DNS reply does not match the expectation as mentioned in the Objective. 
 
 
+It is necessary to consider all possible cases because the binary is designed to be flexible to the **choice**  of the user.  
  
-### Strategies for Different Deployment Scenarios 
+
+
+## Implementation
+
 
 I have listed out four possible scenarios that the binary might be deployed in. Out of these, three have a determinate solution and can be implemented right away. The last one will require some hacking and also relies on a feature which is under development. 
-- **Binary Deployed as a Pod** 
 
+### Kubernetes Pod
 
-  Here, the team decides to launch the binary as a health check pod using `kubectl` and a YAML configuration. The steps listed above can then be directly executed with no additional configuration or modifications required.  
+  Here, the team decides to launch the binary as a health check pod using `kubectl` and a YAML configuration. The steps listed in the Design Proposal can then be directly executed with no additional configuration or modifications required.  
 
+The Go [client](https://github.com/kubernetes/client-go) for Kubernetes has packages that can discover and authenticate with the API server. The client can also help with the discovery of pods and services. 
 
-- **Binary Deployed Externally but Creating/Deleting Pods Inside the Cluster Allowed** 
+The DNS [library](https://github.com/miekg/dns) for Go is used to "dig" the cluster IP and pod IPs through DNS. The output of the command execution will help determine whether the DNS service is healthy or not. 
+The restarting of the pods can also be accomplished using the Golang client which talks to the Kubernetes API server. 
+ 
+ These means of execution are shared with the other cases too. 
+
+### External App with Pod Management Privileges
 ![CoreDNSPod](https://user-images.githubusercontent.com/37150991/75658062-9220f900-5c8d-11ea-8c13-f48fbcecc37a.jpeg)
  
  
