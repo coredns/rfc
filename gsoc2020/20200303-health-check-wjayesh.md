@@ -100,13 +100,13 @@ The restarting of the pods can also be accomplished using the Golang client whic
   The pod is just created so that accessing the private k8s cluster network becomes simple (no routing or proxy required). It is straightforward to run a shell in a container (through kubectl exec) and then equally simple to run the dig commands in the shell. 
 
 
-- **Binary Deployed Externally and DNS Port Exposed** 
+### Binary Deployed Externally and DNS Port Exposed** 
 ![CoreDNSNodePort](https://user-images.githubusercontent.com/37150991/75658133-b5e43f00-5c8d-11ea-87de-2dc14f965cd3.jpeg)
 
   Here, the DNS port or the UDP port 53 (in standard deployment) of the CoreDNS deployment is exposed through a service to the external world. The binary, deployed externally, can then use this service to ping the endpoints using the dig command.  
  
 
-- **Creation of Pods Forbidden and DNS Port Not Exposed**
+### Creation of Pods Forbidden and DNS Port Not Exposed**
 
 
   In such a case, the binary (living as an external program) would have very limited options to interact with the cluster. However, there is a way this scenario can be tackled elegantly and that is through a port-forward.  
