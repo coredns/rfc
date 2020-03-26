@@ -20,7 +20,7 @@ There is a need for a reliable way to validate that the CoreDNS pods are providi
 The goal of this project is listed below:
 
 - An application that performs UDP-based DNS requests against the Kubernetes cluster and validates that the received DNS responses match expected responses.
-- The application will restart CoreDNS pods via the Kubernetes API when the previously executed validations fail.
+- The application will restart CoreDNS pods via the Kubernetes API when the previously executed validations fail. The exact threshold for triggering this will be tunable and be available as a configurable option. It can be a percentage of failures or some other metric which I will determine over the course of the project. 
 
 
 While CoreDNS exposes a health check itself in the form of Kubernetes’ `livenessProbe`: 
@@ -28,6 +28,8 @@ While CoreDNS exposes a health check itself in the form of Kubernetes’ `livene
 
 - The health check is not UDP (DNS) based. There have been cases where the health port is accessible (for TCP) but CoreDNS itself isn't (UDP). This protocol difference means that CoreDNS is unhealthy from a cluster standpoint, but the control plane can't see this.  
 - The existing health check is also launched locally (the `kubelet` uses the `livenessProbe`) and the situation could be different for pods accessing it remotely.   
+
+The tool is aimed at the operations team of organisations with multi-node Kubernetes clusters. The tool will require access to the cluster and directly or indirectly manages resources of the clients and as such people operating the binary will need to have those privileges. Manual intervention might be necessary in the case the pods fail repeatedly after restarting and the team needs to be equipped to make changes to the resources allocated to the pods.
  
 ### Deliverables  
 
@@ -38,8 +40,7 @@ While CoreDNS exposes a health check itself in the form of Kubernetes’ `livene
   - This binary only concerns itself with the health of CoreDNS deployed on Kubernetes. It doesn’t cover other scenarios. 
 
 
-- Proper documentation for the product explaining steps and the concepts used. 
- **TODO**
+- Proper documentation for the product explaining steps and the concepts used. There will be `man` pages for the deployment strategies and for interpreting the response of the binary. The repository will have a `README.md` with important details about the project and scope of future development.
  
  
 
@@ -75,18 +76,25 @@ It is necessary to consider all possible cases because the binary is designed to
 ## Implementation
 
 
-I have listed out four possible scenarios that the binary might be deployed in. Out of these, three have a determinate solution and can be implemented right away. The last one will require some hacking and also relies on a feature which is under development. 
+I have listed out four possible scenarios that the binary might be deployed in. Out of these, three have a determinate solution and can be implemented right away. The last one will require some hacking and also relies on a feature which is under development.
 
-### Kubernetes Pod
-
-  Here, the team decides to launch the binary as a health check pod using `kubectl` and a YAML configuration. The steps listed in the Design Proposal can then be directly executed with no additional configuration or modifications required.  
-
+There are steps which are shared by all cases. 
 The Go [client](https://github.com/kubernetes/client-go) for Kubernetes has packages that can discover and authenticate with the API server. The client can also help with the discovery of pods and services. 
 
 The DNS [library](https://github.com/miekg/dns) for Go is used to "dig" the cluster IP and pod IPs through DNS. The output of the command execution will help determine whether the DNS service is healthy or not. 
+If the IP of the service changes between the time the cluster-info is pulled and the time of the DNS request, then the best option would be to have an exception handler that will recheck the info if the current query fails (due to wrong IPs).
+
 The restarting of the pods can also be accomplished using the Golang client which talks to the Kubernetes API server. 
+
+### Kubernetes Pod
+
+  Here, the team decides to launch the binary as a health check pod using `kubectl` and a YAML configuration. The steps listed above can then be directly executed with no additional configuration or modifications required.  
  
- These means of execution are shared with the other cases too. 
+| **Pros** | **Cons** |
+| --- | --- |
+| Faster access to the CoreDNS pods/service as all communication within cluster | Consumes resources of the users' cluster for creating pods |
+|Easier to debug since less number of point of failures| |
+
 
 ### External App with Pod Management Privileges
 ![CoreDNSPod](https://user-images.githubusercontent.com/37150991/75658062-9220f900-5c8d-11ea-8c13-f48fbcecc37a.jpeg)
@@ -99,14 +107,22 @@ The restarting of the pods can also be accomplished using the Golang client whic
 
   The pod is just created so that accessing the private k8s cluster network becomes simple (no routing or proxy required). It is straightforward to run a shell in a container (through kubectl exec) and then equally simple to run the dig commands in the shell. 
 
+| **Pros** | **Cons** |
+| --- | --- |
+| Maintains fast access to cluster as lookup performed within cluster network  | Communication between the binary and the pod in the cluster introduces a point of failure/delay |
+| Takes lesser resources compared to first case as the binary lives outside the cluster | Still consumes some memory/cpu of the users' cluster |
 
-### Binary Deployed Externally and DNS Port Exposed** 
+### Binary Deployed Externally and DNS Port Exposed
 ![CoreDNSNodePort](https://user-images.githubusercontent.com/37150991/75658133-b5e43f00-5c8d-11ea-87de-2dc14f965cd3.jpeg)
 
   Here, the DNS port or the UDP port 53 (in standard deployment) of the CoreDNS deployment is exposed through a service to the external world. The binary, deployed externally, can then use this service to ping the endpoints using the dig command.  
  
-
-### Creation of Pods Forbidden and DNS Port Not Exposed**
+| **Pros** | **Cons** |
+| --- | --- |
+| No cluster resources used | Communication inside the cluster between service and pods is not foolproof and might introduce failures|
+| | Service IPs may change between requests and delay is introduced to get the right IPs again |
+| | Difficult or impossible to separately ping pod IPs |
+### Creation of Pods Forbidden and DNS Port Not Exposed
 
 
   In such a case, the binary (living as an external program) would have very limited options to interact with the cluster. However, there is a way this scenario can be tackled elegantly and that is through a port-forward.  
@@ -115,78 +131,92 @@ The restarting of the pods can also be accomplished using the Golang client whic
   Port-forward creates a connection between a port on our application host and the port we want to connect to on a pod, inside the cluster.  Although port-forward works only for TCP connections currently, there is an active issue to bring the functionality to UDP ports and I’ll be tracking the issue over the next months to see if something can be hacked together.  
 
 
- 
+| **Pros** | **Cons** |
+| --- | --- |
+| No cluster resources used | port-forward not available for UDP, as of now | 
+| Fast access as port on the pod directly exposed | |
+| Lesser number of point of failures and easier to debug | |
 
 Preliminary API Spec 
 -
 
-```python
-connectToApiServer() { 
-"""  
+```Go
+type Client struct {
+    clientset Clientset
+    deploymentOption string
+    // more attributes
+}
+```
+
+
+```Go
+func (c Client) connectToApiServer() { 
+/*  
 Establish connection with the API server of the cluster   
 and authenticate client  
-""" 
+*/
 } 
 ```
 
-```python
-findIPs (caseNumber) { 
-"""  
+```Go
+func (c Client) findIPs(caseNumber string) map[string]string { 
+/*  
 Finds and returns the IPs to be pinged by the `dig` method.  
 Depending on the case, either the ClusterIP or the `NodePort`/`LoadBalancer` IP    
-is returned.	
+is returned.	 
+*/
  
-""" 
-# Args: 
-# caseNumber: Depending on the case, either the ClusterIP or the `NodePort`/`LoadBalancer` IP  
-# is returned. 
-# Returns: 
-# Map of IPs (and their tags) to be pinged 
+// Args: 
+// caseNumber: Depending on the case, either the ClusterIP or the `NodePort`/`LoadBalancer` IP  
+// is returned. 
+// Returns: 
+// Map of IPs (and their tags) to be pinged 
  } 
 ```
 
-```python
-digIP(IPAddress) { 
-"""  
+```Go
+func (c Client) digIP(IPAddress string) []bool { 
+/*  
 Sends DNSqueries to the input IP address.  
 Implements logic to determine if CoreDNS is healthy or not based on 
 the output received	
+*/ 
  
-""" 
-# Args: 
-# IPAddr: Set of addresses to send `dig` requests to.  
-# Returns: 
-#  A set of true/false values for the input resources 
-#  false indicating bad health 
+// Args: 
+// IPAddr: Set of addresses to send `dig` requests to.  
+// Returns: 
+//  A set of true/false values for the input resources 
+//  false indicating bad health 
 } 
 ```
 
-```python
-restartCoreDNS(indicators) { 
-"""  
+```Go
+func (c Client) restartCoreDNS(indicators []bool) string { 
+/*  
 Figure out what resources to repair. Communicate with the API server to restart 
 the sick resource  and maintain a healthy state.	
+*/ 
  
-""" 
-# Args: 
-# indicators: A set of true/false values for the input resources 
-#  false indicating bad health 
-# Returns: 
-#  Status report indicating if operations successful 
+// Args: 
+// indicators: A set of true/false values for the input resources 
+//  false indicating bad health 
+// Returns: 
+//  Status report indicating if operations successful 
 } 
 ```
 
-```python
-deployAndExposePod() { 
-"""  
+```Go
+func (c Client) deployAndExposePod() []string { 
+/*  
 Method to create lightweight pod inside the cluster with purpose of 
 accessing the Kubernetes networking and running `dig` on the ClusterIP.	
-""" 
-# Args: 
-# None 
+*/ 
  
-# Returns: 
-#  IP address of the service, pod name and other information 
+// Args: 
+// None 
+ 
+// Returns: 
+//  IP address of the service, pod name and other information 
 } 
 ```
  
