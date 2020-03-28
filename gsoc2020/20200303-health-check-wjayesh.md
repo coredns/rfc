@@ -62,7 +62,7 @@ received from Kubernetes API.
 The previously discovered cluster IP and the pod IP, both need to be pinged because in real production systems, any point of the system could fail. We cannot make the assumption that Kubernetes networking (forwarding requests from the Service IP to the Pods) will work all the time.  
 Apart from this, it’ll be useful to know which Pods are sick, so they can be remedied individually.
 
-If there are no CoreDNS pods or service, then .....TODO
+
  
  
  
@@ -81,7 +81,8 @@ I have listed out four possible scenarios that the binary might be deployed in. 
 There are steps which are shared by all cases. 
 The Go [client](https://github.com/kubernetes/client-go) for Kubernetes has packages that can discover and authenticate with the API server. The client can also help with the discovery of pods and services. 
 
-The DNS [library](https://github.com/miekg/dns) for Go is used to "dig" the cluster IP and pod IPs through DNS. The output of the command execution will help determine whether the DNS service is healthy or not. 
+The DNS [library](https://github.com/miekg/dns) for Go is used to make DNS requests to the cluster IP and pod IPs over UDP. The output of the command execution will help determine whether the DNS service is healthy or not. 
+
 If the IP of the service changes between the time the cluster-info is pulled and the time of the DNS request, then the best option would be to have an exception handler that will recheck the info if the current query fails (due to wrong IPs).
 
 The restarting of the pods can also be accomplished using the Golang client which talks to the Kubernetes API server. 
@@ -125,7 +126,11 @@ The restarting of the pods can also be accomplished using the Golang client whic
 ### Creation of Pods Forbidden and DNS Port Not Exposed
 
 
-  In such a case, the binary (living as an external program) would have very limited options to interact with the cluster. However, there is a way this scenario can be tackled elegantly and that is through a port-forward.  
+  In such a case, the binary (living as an external program) would have very limited options to interact with the cluster. However, there are ways this scenario can be tackled elegantly.
+  
+One of them is providing access to the overlay network so that the pods can be directly accessed. For this, the operator of the binary must have access to the overlay network themselves. 
+
+The second way to achieve this is through a port-forward.  
 
 
   Port-forward creates a connection between a port on our application host and the port we want to connect to on a pod, inside the cluster.  Although port-forward works only for TCP connections currently, there is an active issue to bring the functionality to UDP ports and I’ll be tracking the issue over the next months to see if something can be hacked together.  
