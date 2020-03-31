@@ -178,7 +178,7 @@ For each of these models the following metrics would be calculated:
 
 - __F Measure__: F-Measure provides a way to combine both precisions and recall into a single measure that captures both properties. Therefore, F-Measure = (2 * Precision * Recall) / (Precision + Recall) 
 
-- __REsults on testing data__ : Some classes (based on the rules) will not be used for training or validation. They will purely be used for testing purposes to know how the model would respond to never been seen before anomalous data.
+- __Results on testing data__ : Some classes (based on the rules) will not be used for training or validation. They will purely be used for testing purposes to know how the model would respond to never been seen before anomalous data.
 
 Depending on these evaluation parameters the models would be retrained, and later on, a single model would be shortlisted from the three as a deliverable.
 
@@ -237,40 +237,40 @@ def initalize_new_weights()
 
 More functions will be added on further discussion.
 
-**Before 27 April:**  
+**Before 1st May:**  
 
 I will go through the required DNS concepts as well as the essential features of Prometheus.
 
-**27 April to 18 May:** 
+**1st May to 31st May:** 
 
 I will communicate with the CoreDNS community and participate in any interesting discussion that comes up. I will further finalize the ideas regarding the project by corresponding with the mentors as well as the members of the community. 
 
 
-**18 May to 31st May:** 
+**1st June to 14th June:** 
 
 In this period, data collection will be the main priority. Data would be collected from the simulation software. Moreover, a production server would be created (if it's not readily available), and the data would be collected from the same. In addition to that, the data will be filtered and preprocessed for training for the three machine learning models
 
-**1st June to 7th June:** 
+**15th June to 24th June:** 
 
 The first model will be created and training for the same will begin.  Note that training will encompass hyperparameter tuning using Talos.
 
-**8th June to 14th June:** 
+**25th June to 4th July:** 
 
 The second model will be created and training for the same will begin. Note that training will encompass hyperparameter tuning using Talos.
 
-**15th June to 21st June:** 
+**5th July to 14th July:** 
 
 The third model will be created and training for the same will begin. Note that training will encompass hyperparameter tuning using Talos.
 
-**22nd July to 28th July:** 
+**15 July to 26th July:** 
 
 The results are compiled in this section and discussed further with the mentors. The models are then retrained depending on mentor feedback as well as the results obtained. 
 
-**29th July to 10th August:** 
+**27th July to 23rd August:** 
 
 The results are again compiled and then a model is shortlisted. The model is then packaged as a class and documentation is provided for the same. 
 
-**10th to 17th August:** 
+**24th to 30th August:** 
 
 Period to account for any unforeseen delays. 
 
