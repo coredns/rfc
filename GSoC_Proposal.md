@@ -1,6 +1,6 @@
 # Anomaly Detection of CoreDNS Server through Machine Learning
 
-| Status        | Proposed       |
+| Status        | Accepted   |
 :-------------- |:---------------------------------------------------- |
 | **RFC #**     | [#4]|
 | **Author(s)** | Chanakya Ekbote (@Chanakya-Ekbote) |
@@ -227,7 +227,7 @@ def initalize_new_weights()
 ```
 
 ```python
- def predcit(data)
+ def predict(data)
    """
      Predicts the class of the data
    """ 
