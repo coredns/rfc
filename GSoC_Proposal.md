@@ -196,7 +196,7 @@ Given the fact that we’ll be working on tuning various models, tuning the hype
 
 Retraining the model will be of prime importance as if the engineer observes some anomalous but the model predicts that no anomaly occurred. In that case, the engineer labels this data and then the model is retrained. This is applicalbe only for models 2 and 3. 
 
-## Packaging it as a Class
+## Packaging the model as a Class
 
 The trained model would be packaged as a class. Moreover, the classes would contain functions (given below) that would make training and testing the model much easier, even if he/she has no prior knowledge about TensorFlow/Keras syntaxes. The functions are as follows: 
 
