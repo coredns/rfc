@@ -187,59 +187,47 @@ accessing the Kubernetes networking and running `dig` on the ClusterIP.
 Timeline 
 -
 
-**Before 27 April:** 
+**Before 11th May:** 
 
-I’ll get comfortable with the Go language and DNS concepts. 
+I’ll get comfortable with the Go language and DNS concepts. I’ll bond with the community and understand what test systems, coding practices and principles are followed. I’ll stay active on community channels and discuss the idea and solution further to finalize and perfect the approach.
 
+**11th May to 24th May:**
 
-**27 April to 18 May:** 
- 
-I’ll bond with the community and understand what test systems, coding practices and principles are followed. I’ll stay active on community channels and discuss the idea and solution further to finalize and perfect the approach. 
+Develop code to enable the application to determine what scenario and environment it is deployed in.
+I will implement a priority order for the different approaches when two or more are existing simultaneously; after deliberations with the mentors.
+Ultimately, the app at this stage should be able to transfer control to one of the four cases.
 
+**24th May to 31st May:**
 
-**18 May to 31st May:** 
- 
-Develop code to enable the application to determine what scenario and environment it is deployed in.  
-I will implement a priority order for the different approaches when two or more are existing simultaneously; after deliberations with the mentors.  
-Ultimately, the app at this stage should be able to transfer control to one of the four cases. 
- 
-**1st June to 7th June:** 
- 
-Test the existing code rigorously and document the process. 
- 
-**7th June to 21st June:** 
- 
-Take on the first case (deployed as a pod) and implement part of the specified API that caters to this situation. A lot of the code written in this period could be reused with some additions or logic control for the remaining cases.  
- 
-**22nd June to 30th June:** 
- 
-Test and document the existing code thoroughly.  
- 
- 
- 
-**1st July to 7th July:** 
- 
-Implement the part of the API specific to the second case. Some code will need to be added to get the `NodePort`/`LoadBalancer` IP in this case. Will also look for other modifications required.  
- 
-**7th July to 14th July:** 
- 
-Test and document the application up to this stage and ensure the two cases report correct results and function as expected.  
- 
-**14th July to 21st July:** 
- 
-Implement the deployAndExposePod function and check compatibility with code in the existing functions. Figure out if any modifications or utilities needed. 
- 
-**21st July to 28th July:** 
- 
-Test and document the code and ensure all the three cases work as expected.  
- 
-**28th July to 10th August:** 
- 
-Explore options for solving the fourth case and look for any hacks or contributions required to make it work.  
-Will also further test the code in different conditions and better the documentation of the entire project. 
- 
-**10th to 17th August:** 
-Buffer to accommodate for unexpected delays or roadblocks.    
+Test the existing code rigorously and document the process.
+
+**1st June to 15th June:**
+
+Take on the first case (deployed as a pod) and implement part of the specified API that caters to this situation. A lot of the code written in this period could be reused with some additions or logic control for the remaining cases.
+
+**15th June to 21st June:**
+
+Test and document the existing code thoroughly.
+
+**22nd June to 30th June:**
+
+Implement the part of the API specific to the second case. Some code will need to be added to get the NodePort/LoadBalancer IP in this case. Will also look for other modifications required.
+
+**1st July to 7th July:**
+
+Test and document the application up to this stage and ensure the two cases report correct results and function as expected.
+
+**7th July to 14th July:**
+
+Implement the deployAndExposePod function and check compatibility with code in the existing functions. Figure out if any modifications or utilities are needed.
+
+**14th July to 20th July:**
+
+Test and document the code and ensure all the three cases work as expected.
+
+**Future work:**
+
+Explore options for solving the fourth case and look for any hacks or contributions required to make it work.
  
  
 
