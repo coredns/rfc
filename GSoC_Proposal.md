@@ -4,7 +4,7 @@
 :-------------- |:---------------------------------------------------- |
 | **RFC #**     | [#4]|
 | **Author(s)** | Chanakya Ekbote (@Chanakya-Ekbote) |
-| **Sponsor**   |   |
+| **Sponsor**   | Yong Tang (@yongtang), Paul Greenberg (@greenpau) |
 | **Updated**   | 2020-03-21 |
 | **Obsoletes** |  |
 
