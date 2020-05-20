@@ -2,9 +2,9 @@
 
 | Status        |  Proposed        |
 :-------------- |:---------------------------------------------------- |
-| **RFC #**     | [NNN](https://github.com/coredns/rfc/pull/NNN) (update when you have RFC PR #)|
+| **RFC #**     | [8](https://github.com/coredns/rfc/pull/8)|
 | **Author(s)** | Jayesh Sharma (@[wjayesh](https://github.com/wjayesh))  |
-| **Sponsor**   |    |
+| **Sponsor**   |  Yong Tang (@[yongtang](https://github.com/yongtang)), Paul Greenberg (@[greenpau](https://github.com/greenpau)) |
 | **Updated**   | 2020-03-03                                           |
 | **Obsoletes** |  |
 
