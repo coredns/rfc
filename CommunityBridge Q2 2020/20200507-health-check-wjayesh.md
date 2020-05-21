@@ -1,6 +1,6 @@
 # UDP(DNS) Health Check for Kubernetes Deployment
 
-| Status        |  Proposed        |
+| Status        |  Accepted        |
 :-------------- |:---------------------------------------------------- |
 | **RFC #**     | [8](https://github.com/coredns/rfc/pull/8)|
 | **Author(s)** | Jayesh Sharma (@[wjayesh](https://github.com/wjayesh))  |
