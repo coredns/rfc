@@ -2,7 +2,7 @@
 
 | Status        |  Accepted        |
 :-------------- |:---------------------------------------------------- |
-| **RFC #**     | [8](https://github.com/coredns/rfc/pull/8)|
+| **RFC #**     | [10](https://github.com/coredns/rfc/pull/10)|
 | **Author(s)** | Jayesh Sharma (@[wjayesh](https://github.com/wjayesh))  |
 | **Sponsor**   |  Yong Tang (@[yongtang](https://github.com/yongtang)), Paul Greenberg (@[greenpau](https://github.com/greenpau)) |
 | **Updated**   | 2020-03-03                                           |
