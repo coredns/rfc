@@ -4,7 +4,7 @@
 :-------------- |:---------------------------------------------------- |
 | **RFC #**     | [NNN](https://github.com/coredns/rfc/pull/NNN) (update when you have RFC PR #)|
 | **Author(s)** | Jimil Desai (@[jimil749](https://github.com/jimil749))|
-| **Sponsor**   | Yong Tang (@[yongtang](https://github.com/yongtang)), Miek Gieben (@[meikg](https://github.com/miekg))   |
+| **Sponsor**   | Yong Tang (@[yongtang](https://github.com/yongtang)), Miek Gieben (@[meikg](https://github.com/miekg)), Paul Greenberg ([@greenpau](https://github.com/greenpau))|
 | **Updated**   | 2021-03-23                                           |
 | **Obsoletes** |  |
 
