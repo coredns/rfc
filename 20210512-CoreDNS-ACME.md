@@ -22,7 +22,7 @@ The [ACME](https://tools.ietf.org/html/rfc8555) Protocol can come in handy here 
 
 ### Deliverables
 
-- At the end of the GSoC period, I would add a new `ACME` plugin to CoreDNS which enables certificate issuance and management
+- At the end of the LFX internship period, I would add a new `ACME` plugin to CoreDNS which enables certificate issuance and management
     - This plugin would be defined inside the `https` server block, within the tls directive in the Corefile to setup and manage the certificates for DoH
 - Documentation for the plugin explaining the configurations and usability. 
 
