@@ -134,7 +134,7 @@ Note: This challenge requires port 80 on the web server to be open and would not
 
 #### DNS-01 Challenge
 
-This challenge asks one to prove that they control the DNS for the domain name by putting a specific value in a TXT record under that domain name. After obtaining a token, agent/client needs to create a TXT record derived and the account key, and put that record at `_acme-challenge.<DOMAIN>`. Then CA will query thhe DNS system for that record. If it matches, certificates can be issued. Since, the sole purpose of using ACME is automate the certificate renewal and issuance it only makes sense to use DNS-01 challenges if the DNS provider has an API to update records. This challenge can come in handy when port 80 is not available. It also allows issuing wildcard certificates.
+This challenge asks one to prove that they control the DNS for the domain name by putting a specific value in a TXT record under that domain name. After obtaining a token, agent/client needs to create a TXT record derived and the account key, and put that record at `_acme-challenge.<DOMAIN>`. Then CA will query the DNS system for that record. If it matches, certificates can be issued. Since, the sole purpose of using ACME is automate the certificate renewal and issuance it only makes sense to use DNS-01 challenges if the DNS provider has an API to update records. This challenge can come in handy when port 80 is not available. It also allows issuing wildcard certificates.
 
 ### CoreDNS Integration
 
