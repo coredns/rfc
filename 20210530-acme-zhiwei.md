@@ -170,3 +170,4 @@ Period: June 1st - August 31st
 
 1. How do I configure the workers to look for the master? When the certificate is renewed, how does the master know where the workers are and how to send the certificate to them?
 2. Any idea about certificate renewal? The previous RFC mentioned changing the `reload` plugin to watch the expiration of the CERT RR.
+3. How do you test the plugins you write? I am aware that you have to run `go generate && go build` after editing `plugin.cfg`. I also noticed that each plugin repository does not have a `go.mod` file. Do you create a folder for the plugin in the coredns repository and then build it?
