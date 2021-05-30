@@ -140,28 +140,28 @@ In order to prevent the workers from using the stale certificates, the master di
 Due to the tight timeline, 50% of the project has to be implemented by July 11th.
 Period: June 1st - August 31st
 
-** 31 May - 6 June **
+**31 May - 6 June**
 1. Approval of RFC
 2. Setting up of development environment
 3. First Meeting
 4. After approval of RFC, start of writing
 
-** 7 June - 20 June **
+**7 June - 20 June**
 1. Develop code to perform ACME, its basic functionality, along with documentation and tests
 
-** 21 June - 5 July **
+**21 June - 5 July**
 1. Develop code to handle HTTP01 and DNS01 Challenges, along with documentation and tests
 
-** 6 July - 25 July **
+**6 July - 25 July**
 50% implementation done by 11 July
 1. Initial implementation of master and workers
 2. Creation of the clustered environment for development and testing
 
-** 26 July -  15 August **
+**26 July -  15 August**
 1. Implementation of certificate renewal
 2. More rigorous testing of clustered implementation
 
-** 16 August - 31 August **
+**16 August - 31 August**
 1. Buffer period
 2. Cleanup
 3. Finish writing the final report
