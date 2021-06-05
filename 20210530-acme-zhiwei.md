@@ -2,42 +2,64 @@
 
 | Status        | (Proposed / Accepted / Implemented / Obsolete)       |
 :-------------- |:---------------------------------------------------- |
-| **RFC #**     | [NNN](https://github.com/coredns/rfc/pull/NNN) (update when you have RFC PR #)|
+| **RFC #**     | [12](https://github.com/coredns/rfc/pull/12) |
 | **Author(s)** | Zhi Wei Chin(@[chinzhiweiblank](https://github.com/chinzhiweiblank)) |
 | **Sponsor**   | Yong Tang (@[yongtang](https://github.com/yongtang)), Paul Greenberg (@[greenpau](https://github.com/greenpau)) |
-| **Updated**   | 2021-05-30                                       |
+| **Updated**   | 2021-06-05                                       |
 | **Obsoletes** | |
-
-## References
-1. A previously closed RFC https://github.com/coredns/rfc/pull/11/files
-2. https://letsencrypt.org/docs/challenge-types/
 
 ## Objective
 
 This project idea aims to add ACME protocol support for certificate management with DNS.
 
 ## Motivation and Scope
-Currently CoreDNS supports DNS over HTTPS, which is a protocol for performing DNS resolution via the HTTPS protocol. However, there is no out-of-box certificate retrievel and management provided by CoreDNS. Hence it is upto the users to manage the certificate lifecycle.
+Currently CoreDNS supports DNS over HTTPS, which is a protocol for performing DNS resolution via the HTTPS protocol. However, there is no out-of-box certificate management provided by CoreDNS. Hence it is up to the users to manage the certificate lifecycle.
 
-Managing certificates manually poses a risk to systems in production becayse certificates can get forgotten until expiration and there is risk of exposure to gaps in ownership, leading to Man-in-the-Middle attacks and breaches.
+### Manual Certificate Management
+To generate a TLS/SSL certificate, you need to do the following:
+1. Generate a Certificate Signing Request (CSR)
+2. Cut and paste the CSR into a Certificate Authority's (CA) web page
+3. Prove ownership of the domain(s) in the CSR through the CA's challenges
+4. Download the issued certificate and install it on the user's server
 
-[ACME](https://tools.ietf.org/html/rfc8555) allows automatic renewal, replacement and revocation of domain validated SSL certificates.Thus adding a new `acme` plugin into CoreDNS automates the manual process of certificate management.
+Managing certificates manually poses a risk to systems in production because:
+1. Users can forget to renew certificate until expiration
+2. Risk of exposure leads to gaps in ownership and hence Man-in-the-Middle attacks and breaches.
+
+ACME allows automatic renewal, replacement and revocation of domain validated TLS/SSL certificates. Thus adding a new ACME functionality into CoreDNS automates the manual process of certificate management and removes these risks.
 
 ## Deliverables
-
-- A plugin that is able to perform ACME and deal with the following challenges in clustered environments:
+- To create a plugin that is able to perform ACME and deal with the following challenges:
     - HTTP01
     - DNS01
     - TLS-ALPN-01
+- The plugin should work in clustered environments i.e. multiple DNS servers
 
 ## Concepts
-### ACME Steps
-[Explanation](https://www.thesslstore.com/blog/acme-protocol-what-it-is-and-how-it-works/)
-1. The agent generates a CSR for the domain.
-2. The agent signs the public key generated alongside the CSR with the corresponding private key
-3. The agent signs the whole CSR with its own private key (the authorization key generated during initial configuration)
-4. The CA verifies both signatures and issues the certificate
-5. The agent receives the certificate and installs it on the relevant domain
+### ACME Protocol
+
+#### Domain Validation
+<img src="images/acme_registration_diagram.png" alt="domain validation"/>
+
+* Server generates key-value pair: a public and private key. Server keeps private key
+* Certificate Authority (CA) issues one or more challenges to prove that the server controls the domain.
+* CA also provides an arbitrary number (a nonce) to sign with the private key. This proves that it controls the key-value pair.
+* Server fulfills the challenge and signs the provided nonce.
+* CA verifies the nonce and checks if the challenge is fulfilled.
+* Server is authorised to do certificate management for the domain with the key-value pair. The key-value pair is now known
+as the **authorised** key-value pair.
+
+#### Certificate Issuance
+<img src="images/acme_certificate_issuance_diagram.jpg" alt="certificate issuance"/>
+
+* Server generates a Certificate Signing Request and a public key. It asks the CA to issue a certificate with this public key.
+* Server signs the public key in the CSR and the CSR with the **authorised** private key.
+* CA verifies both signatures and issues the certificate.
+* Server receives the certificate and installs it on the relevant domain.
+
+Likewise, for revocation, a revocation request is generated and signed with the **authorised** private key. It is then sent to the CA to revoke the certificate.
+
+### Challenges
 
 ### HTTP01 Challenge
 This requires port 80.
@@ -60,17 +82,17 @@ It works by providing a special certificate using a standard TLS extension, Appl
 
 The major task of this project is to integrate the above defined specs of ACME protocol into CoreDNS so that it could automate certificate management. 
 
-In current scenorios, in order to enable DNS over HTTPS users have to manually provide certificates via the following Corefile configurations:
+In current scenarios, in order to enable DNS over HTTPS users have to manually provide certificates via the following Corefile configurations:
 ```
 https://example.com {
-    tls mycert.pem mykey.pem
+  tls mycert.pem mykey.pem
 }
 ```
 
-To add this functionality I propose to add a new plugin `acme`, which performs the acme protocol under the hood and manages the certificates.
+I propose an `acme` plugin.
 
 I propose to either use [acmez](https://pkg.go.dev/github.com/mholt/acmez) to implement ACME and write the solvers from scratch, or use the solvers in [CertMagic](https://github.com/caddyserver/certmagic) which already deal with the different challenges. Both are written in Go and fully-compliant with ACME.
-acmez is only for getting certificates, not managing them. Thus, we still have to write the logic for managing the certificates.
+acmez is only for getting certificates, not managing them. Thus, we still have to write the logic for managing the certificates if we use purely acmez.
 
 ACMEZ can help us implement low level ACME protocol, but the major roadblock here would be to have a valid domain for which the certificate is issued. In order to perform ACME, the DNS server needs to own a valid domain.
 
@@ -79,10 +101,8 @@ For example, if one owns a domain of `example.com`, this domain would be used to
 The new configuration/Corefile for using acme for certificate management would be the following:
 ```
 https://example.com {
-  tls {
-    acme <DOMAIN_YOU_OWN> {
-      challenge <CHALLENGE_TYPE>
-    }
+  acme <domain_name> {
+    challenge <challenge_type> /* (http01|dns01|tlsalpn)*/
   }
 }
 ```
@@ -97,25 +117,25 @@ Another plausible alternative to storing certificates is using TXT records. Inst
 
 ### Clustered Environment
 
+This could be put into another separate plugin like `acme-worker` and `acme-leader`. However, I propose for it to stay under the `acme` plugin
+because it would share the code and logic needed for `acme`.
+
 In clustered environment, where there are multiple CoreDNS instances running, certificate sharing is a major concern. Certificate sharing is important as it is not feasible for each CoreDNS instance to fetch certificate individually.
 
-Since high availability is not a concern, a solution is to configure CoreDNS instances as "master" and "worker". 
+Since high availability is not a concern, a solution is to configure CoreDNS instances as "leader" and "worker". 
 
-1. Master: In a cluster, a single DNS Server can be configured as "master", which would be responsible for actually performing ACME challenges and obtaining certificate from the Let's Encrypt CA. The Master would then store the certificate in the zone file as CERT RR under the domain of `dns.coredns.io`. This certificate can be used to serve DoH whenever there is a DNS query to the master.
+1. Leader: In a cluster, a single DNS Server can be configured as "leader", which would be responsible for actually performing ACME challenges and obtaining certificate from the Let's Encrypt CA. The leader would then store the certificate in the zone file as CERT RR under the domain of `dns.coredns.io`. This certificate can be used to serve DoH whenever there is a DNS query to the master.
 
-2. Worker: The worker is responsible for fetching the certificates from the master. The worker is not responsible for performing ACME challenges. Whenever a DNS query is recieved at the worker node, the worker first queries the master for the certificate. Workers should cache the certificate and use it for further DoH queries.
+2. Worker: The worker is responsible for fetching the certificates from the master. The worker is not responsible for performing ACME challenges. Whenever a DNS query is received at the worker node, the worker first queries the master for the certificate. Workers should cache the certificate and use it for further DoH queries.
 
 Configurations:
 
-Master
+Leader
 ```
 https://example.com {
-  tls {
-    master
-    acme <DOMAIN> {
-      challenge <HTTP/DNS Challenge>
-      /* challenge spec */
-    }
+  acme <DOMAIN> {
+    challenge <HTTP/DNS Challenge>
+    leader
   }
 }
 ```
@@ -123,10 +143,9 @@ https://example.com {
 Worker
 ```
 https://example.com {
-  tls {
+  acme <DOMAIN> {
     worker
   }
-  cache
 }
 ```
 
@@ -168,5 +187,14 @@ Period: June 1st - August 31st
 
 ## Questions and Discussion Topics
 
-1. How do I configure the workers to look for the master? When the certificate is renewed, how does the master know where the workers are and how to send the certificate to them?
-2. Any idea about certificate renewal? The previous RFC mentioned changing the `reload` plugin to watch the expiration of the CERT RR.
+1. How should I configure the workers to look for the master? When the certificate is renewed, how does the master know where the workers are and how to send the certificate to them?
+2. Where should I store the certificate and public-private key pair? Or I can just let the library decide?
+3. Any idea about certificate renewal? The previous RFC mentioned changing the `reload` plugin to watch the expiration of the CERT RR.
+4. Do I need to add the cache feature for workers or is it something already included in the TLS plugin?
+5. Do coredns have a domain for testing and development? I have to try using ACME with a CA.
+
+## References
+1. Previous [RFC](https://github.com/coredns/rfc/pull/11/files)
+2. [DNS Challenge Types](https://letsencrypt.org/docs/challenge-types/)
+3. [Explanation of ACME Protocol](https://www.thesslstore.com/blog/acme-protocol-what-it-is-and-how-it-works/)
+4. [ACME RFC](https://tools.ietf.org/html/rfc8555)
