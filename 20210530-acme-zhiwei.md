@@ -13,7 +13,12 @@
 This project idea aims to add ACME protocol support for certificate management with DNS.
 
 ## Motivation and Scope
-Currently CoreDNS supports DNS over HTTPS, which is a protocol for performing DNS resolution via the HTTPS protocol. However, there is no out-of-box certificate management provided by CoreDNS. Hence it is up to the users to manage the certificate lifecycle.
+Currently CoreDNS supports DNS over TLS, a protocol for DNS resolution. This is currently done through  the `tls` plugin which requires
+the user to provide a certificate and key manually. However, the **ACME** protocol enables automatic certificate management, as explained in
+the next section. Hence, this will allow us to do DNS over TLS more safely and easily.
+
+Also, certificate management requires proof of domain ownership through challenges. One of the challenges is DNS01, which requires modification
+of DNS records on the domain. Hence, CoreDNS, as a DNS server, can resolve this on this own by creating a temporary DNS TXT record to resolve this challenge.
 
 ### Manual Certificate Management
 To generate a TLS/SSL certificate, you need to do the following:
@@ -163,7 +168,7 @@ Period: June 1st - August 31st
 1. Approval of RFC
 2. Setting up of development environment
 3. First Meeting
-4. After approval of RFC, start of writing
+4. Start of writing code
 
 **7 June - 20 June**
 1. Develop code to perform ACME, its basic functionality, along with documentation and tests
